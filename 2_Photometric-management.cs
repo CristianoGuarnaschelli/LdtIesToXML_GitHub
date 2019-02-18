@@ -99,11 +99,13 @@ namespace LDTandIEStoXMLConverter
             {
                 ldtiesname = filename;
                 filepath = FullFileName.Replace(ldtiesname, "");
-                if (ldtiesname.Substring(ldtiesname.Length - 4) == ".ldt")
+
+                if (string.Equals(ldtiesname.Substring(ldtiesname.Length - 4), ".ldt", StringComparison.OrdinalIgnoreCase))
+                //if (ldtiesname.Substring(ldtiesname.Length - 4) == ".ldt")
                 {
                     FileType = "ldt";
                 }
-                else if (ldtiesname.Substring(ldtiesname.Length - 4) == ".ies")
+                else if (string.Equals(ldtiesname.Substring(ldtiesname.Length - 4), ".ies", StringComparison.OrdinalIgnoreCase))
                 {
                     FileType = "ies";
                 }

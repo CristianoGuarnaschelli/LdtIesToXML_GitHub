@@ -29,6 +29,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Globalization;
 
 namespace LDTandIEStoXMLConverter
 {
@@ -125,7 +126,9 @@ namespace LDTandIEStoXMLConverter
             Create_UNI11733_Xml.Instance.Quantity = Convert.ToInt32(Create_UNI11733_Xml.Instance.Ldtlines[26]);
             Create_UNI11733_Xml.Instance.LampDescription = Create_UNI11733_Xml.Instance.Ldtlines[27];
 
-            Create_UNI11733_Xml.Instance.RatedLumen = Convert.ToDecimal(Create_UNI11733_Xml.Instance.Ldtlines[28]);
+            Create_UNI11733_Xml.Instance.RatedLumen= Decimal.Parse(Create_UNI11733_Xml.Instance.Ldtlines[28], CultureInfo.InvariantCulture);
+            MessageBox.Show(Create_UNI11733_Xml.Instance.RatedLumen.ToString());
+            //Create_UNI11733_Xml.Instance.RatedLumen = Convert.ToDecimal(Create_UNI11733_Xml.Instance.Ldtlines[28]);
             Create_UNI11733_Xml.Instance.InputWattage = Create_UNI11733_Xml.Instance.Ldtlines[31];
             Create_UNI11733_Xml.Instance.RaCRI = Create_UNI11733_Xml.Instance.Ldtlines[30];
             Create_UNI11733_Xml.Instance.FixedCCT = Create_UNI11733_Xml.Instance.Ldtlines[29];
