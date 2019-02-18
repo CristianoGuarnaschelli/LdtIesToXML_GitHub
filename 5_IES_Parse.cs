@@ -56,7 +56,7 @@ namespace LDTandIEStoXMLConverter
                 else if (test.Contains("[LUMINAIRE]"))
                     Create_UNI11733_Xml.Instance.Model_Description = test;
                 else if (test.Contains("[TESTLAB]"))
-                    Laboratory.Lab = test;
+                    Create_UNI11733_Xml.Instance.MaesureLaboratory = test;//modified by AW
                 else if (test.Contains("[TEST]"))
                     Create_UNI11733_Xml.Instance.ReportNumber = test;
                 else if (test.Contains("[ISSUEDATE]"))

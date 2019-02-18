@@ -76,6 +76,7 @@ namespace LDTandIEStoXMLConverter
 
         private void LoadLdt_Click(object sender, EventArgs e)
         {
+            CleanForm();
             Photometric_management.Instance.SelectPhotometricFile();
 
             if (Photometric_management.Instance.ldtiesname != "no file selected")
@@ -86,12 +87,15 @@ namespace LDTandIEStoXMLConverter
                 LDTtextBox.Text = Photometric_management.Instance.FullFileName;
                 //MessageBox.Show(Photometric_management.Instance.FileType);
 
+                String Lampcodestr="";
                 if (Photometric_management.Instance.FileType == "ldt")
                 {
                     Parse_LDT ldtparser = new Parse_LDT();
 
                     ldtparser.ParseLDT();
                     MessageBox.Show("PARSE LDT Done: ");
+                    LabTextBox.Text = "Unknown";
+                    Lampcodestr = "Not applicable";
                 }
 
                 if (Photometric_management.Instance.FileType == "ies")
@@ -100,6 +104,8 @@ namespace LDTandIEStoXMLConverter
 
                     iesparser.ParseIES();
                     MessageBox.Show("PARSE IES Done: ");
+                    LabTextBox.Text = Create_UNI11733_Xml.Instance.MaesureLaboratory;
+                    Lampcodestr = Create_UNI11733_Xml.Instance.LampCatalogNumber; //modified by AW
                 }
 
                 // HEADER START
@@ -109,7 +115,7 @@ namespace LDTandIEStoXMLConverter
                 CatalogNumbertextBox.Text = Create_UNI11733_Xml.Instance.CatalogNumber;
                 GTINtextBox.Text = "Not assigned";
                 ModeltextBox.Text = Create_UNI11733_Xml.Instance.Model_Description;
-                LabTextBox.Text = "Unknown";
+                
                 RepNumTextBox.Text = Create_UNI11733_Xml.Instance.ReportNumber;
                 RepDateTextBox.Text = Create_UNI11733_Xml.Instance.ReportDate;
                 DocCreatorTextBox.Text = "Unknown";
@@ -147,7 +153,8 @@ namespace LDTandIEStoXMLConverter
                 //LuminousIntensity start
                 QuantityTextBox.Text = Create_UNI11733_Xml.Instance.Quantity.ToString();
                 DescTextBox.Text = Create_UNI11733_Xml.Instance.LampDescription;
-                LampCodeTextBox.Text = "Not applicable";
+                //LampCodeTextBox.Text = "Not applicable";
+                LampCodeTextBox.Text = Lampcodestr; //modified by AW
                 RatedLmTextBox.Text = Create_UNI11733_Xml.Instance.RatedLumen.ToString();
                 InputWattageTextBox.Text = Create_UNI11733_Xml.Instance.InputWattage;
                 RaTextBox.Text = Create_UNI11733_Xml.Instance.RaCRI;
