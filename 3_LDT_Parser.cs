@@ -79,55 +79,165 @@ namespace LDTandIEStoXMLConverter
             }
             Create_UNI11733_Xml.Instance.DocCreateDate = DateTime.Now;
 
-            Create_UNI11733_Xml.Instance.Length = Convert.ToDecimal(Create_UNI11733_Xml.Instance.Ldtlines[12]);
-            Create_UNI11733_Xml.Instance.Width = Convert.ToDecimal(Create_UNI11733_Xml.Instance.Ldtlines[13]);
-            Create_UNI11733_Xml.Instance.Height = Convert.ToDecimal(Create_UNI11733_Xml.Instance.Ldtlines[14]);
+            Create_UNI11733_Xml.Instance.Length = Convert.ToDecimal(Create_UNI11733_Xml.Instance.Ldtlines[12])/1000m;
+            Create_UNI11733_Xml.Instance.Width = Convert.ToDecimal(Create_UNI11733_Xml.Instance.Ldtlines[13]) / 1000m;
+            Create_UNI11733_Xml.Instance.Height = Convert.ToDecimal(Create_UNI11733_Xml.Instance.Ldtlines[14]) / 1000m;
 
+            if (Create_UNI11733_Xml.Instance.Width==0)
+            {
+                Create_UNI11733_Xml.Instance.CircularShape = "Align_Z";
+            }
+
+           
             if (Decimal.TryParse(Create_UNI11733_Xml.Instance.Ldtlines[15], out Create_UNI11733_Xml.Instance.LumLength))
             {
-                ;
+                Create_UNI11733_Xml.Instance.LumLength= Create_UNI11733_Xml.Instance.LumLength/1000m;
             }
-            else Create_UNI11733_Xml.Instance.LumLength = 0;
+            else
+            {
+                Create_UNI11733_Xml.Instance.LumLength = 0;
+                
+            }
 
             if (Decimal.TryParse(Create_UNI11733_Xml.Instance.Ldtlines[16], out Create_UNI11733_Xml.Instance.LumWidth))
             {
-                ;
+                Create_UNI11733_Xml.Instance.LumWidth=Create_UNI11733_Xml.Instance.LumWidth/1000m;
             }
             else Create_UNI11733_Xml.Instance.LumWidth = 0;
 
-            if (Decimal.TryParse(Create_UNI11733_Xml.Instance.Ldtlines[17], out Create_UNI11733_Xml.Instance.hC0))
-            {
-                ;
-            }
-            else Create_UNI11733_Xml.Instance.hC0 = 0;
-
-            if (Decimal.TryParse(Create_UNI11733_Xml.Instance.Ldtlines[18], out Create_UNI11733_Xml.Instance.hC90))
-            {
-                ;
-            }
-            else Create_UNI11733_Xml.Instance.hC90 = 0;
-
-            if (Decimal.TryParse(Create_UNI11733_Xml.Instance.Ldtlines[19], out Create_UNI11733_Xml.Instance.hC180))
-            {
-                ;
-            }
-            else Create_UNI11733_Xml.Instance.hC180 = 0;
-
-            if (Decimal.TryParse(Create_UNI11733_Xml.Instance.Ldtlines[20], out Create_UNI11733_Xml.Instance.hC270))
-            {
-                ;
-            }
-            else Create_UNI11733_Xml.Instance.hC270 = 0;
 
             Create_UNI11733_Xml.Instance.DFF = Convert.ToDecimal(Create_UNI11733_Xml.Instance.Ldtlines[21]);
 
-            Create_UNI11733_Xml.Instance.NumberLightSource = Convert.ToInt32(Create_UNI11733_Xml.Instance.Ldtlines[25]);
+            if (Create_UNI11733_Xml.Instance.DFF > 10)
+            {
+                Create_UNI11733_Xml.Instance.NBtmFace = 1;
 
+                if(Create_UNI11733_Xml.Instance.LumWidth == 0)
+                {
+                    Create_UNI11733_Xml.Instance.CircularShapeBtm = true;
+                }
+                else
+                {
+                    Create_UNI11733_Xml.Instance.CircularShapeBtm = false;
+                }
+
+            }
+            else
+            {
+                Create_UNI11733_Xml.Instance.NBtmFace = 0;
+            }
+
+            if (Create_UNI11733_Xml.Instance.DFF < 60)
+            {
+                Create_UNI11733_Xml.Instance.NTopFace = 1;
+
+                if (Create_UNI11733_Xml.Instance.LumWidth == 0)
+                {
+                    Create_UNI11733_Xml.Instance.CircularShapeTop = true;
+                }
+                else
+                {
+                    Create_UNI11733_Xml.Instance.CircularShapeTop = false;
+                }
+            }
+            else
+            {
+                Create_UNI11733_Xml.Instance.NTopFace = 0;
+            }
+
+
+            if (Decimal.TryParse(Create_UNI11733_Xml.Instance.Ldtlines[17], out Create_UNI11733_Xml.Instance.hC0))
+            {
+                if (Create_UNI11733_Xml.Instance.hC0 == 0)
+                {
+                    Create_UNI11733_Xml.Instance.NC0Face = 0;
+                }
+                else
+                {
+                    Create_UNI11733_Xml.Instance.hC0 = Create_UNI11733_Xml.Instance.hC0 / 1000m;
+                    Create_UNI11733_Xml.Instance.NC0Face = 1;
+                }
+            }
+            else
+            {
+                Create_UNI11733_Xml.Instance.hC0 = 0;
+                Create_UNI11733_Xml.Instance.NC0Face = 0;
+            }
+
+            if (Decimal.TryParse(Create_UNI11733_Xml.Instance.Ldtlines[18], out Create_UNI11733_Xml.Instance.hC90))
+            {
+                if (Create_UNI11733_Xml.Instance.hC90 == 0)
+                {
+                    Create_UNI11733_Xml.Instance.NC90Face = 0;
+                }
+                else
+                {
+                    Create_UNI11733_Xml.Instance.hC90 = Create_UNI11733_Xml.Instance.hC90 / 1000m;
+                    Create_UNI11733_Xml.Instance.NC90Face = 1;
+                }
+            }
+            else
+            {
+                Create_UNI11733_Xml.Instance.hC90 = 0;
+                Create_UNI11733_Xml.Instance.NC90Face = 0;
+            }
+
+            if (Decimal.TryParse(Create_UNI11733_Xml.Instance.Ldtlines[19], out Create_UNI11733_Xml.Instance.hC180))
+            {
+                if (Create_UNI11733_Xml.Instance.hC180 == 0)
+                {
+                    Create_UNI11733_Xml.Instance.NC180Face = 0;
+                }
+                else
+                {
+                    Create_UNI11733_Xml.Instance.hC180 = Create_UNI11733_Xml.Instance.hC180 / 1000m;
+                    Create_UNI11733_Xml.Instance.NC180Face = 1;
+                }
+            }
+            else
+            {
+                Create_UNI11733_Xml.Instance.hC180 = 0;
+                Create_UNI11733_Xml.Instance.NC180Face = 0;
+            }
+
+            if (Decimal.TryParse(Create_UNI11733_Xml.Instance.Ldtlines[20], out Create_UNI11733_Xml.Instance.hC270))
+            {
+                if (Create_UNI11733_Xml.Instance.hC270 == 0)
+                {
+                    Create_UNI11733_Xml.Instance.NC270Face = 0;
+                }
+                else
+                {
+                    Create_UNI11733_Xml.Instance.hC270 = Create_UNI11733_Xml.Instance.hC270 / 1000;
+                    Create_UNI11733_Xml.Instance.NC270Face = 1;
+                }
+            }
+            else
+            {
+                Create_UNI11733_Xml.Instance.hC270 = 0;
+                Create_UNI11733_Xml.Instance.NC270Face = 0;
+            }
+
+            Create_UNI11733_Xml.Instance.LDClengthoff = 0;
+            Create_UNI11733_Xml.Instance.LDCwidthoff = 0;
+
+            
+
+
+            if (Create_UNI11733_Xml.Instance.Ldtlines[25] == "-1")
+            {
+                Create_UNI11733_Xml.Instance.ABSPhotom = true;
+                Create_UNI11733_Xml.Instance.NumberLightSource = 1;
+            }
+            else
+            {
+                Create_UNI11733_Xml.Instance.NumberLightSource = Convert.ToInt32(Create_UNI11733_Xml.Instance.Ldtlines[25]);
+            }
             Create_UNI11733_Xml.Instance.Quantity = Convert.ToInt32(Create_UNI11733_Xml.Instance.Ldtlines[26]);
             Create_UNI11733_Xml.Instance.LampDescription = Create_UNI11733_Xml.Instance.Ldtlines[27];
 
             Create_UNI11733_Xml.Instance.RatedLumen= Decimal.Parse(Create_UNI11733_Xml.Instance.Ldtlines[28], CultureInfo.InvariantCulture);
-            MessageBox.Show(Create_UNI11733_Xml.Instance.RatedLumen.ToString());
+            //MessageBox.Show(Create_UNI11733_Xml.Instance.RatedLumen.ToString());
             //Create_UNI11733_Xml.Instance.RatedLumen = Convert.ToDecimal(Create_UNI11733_Xml.Instance.Ldtlines[28]);
             Create_UNI11733_Xml.Instance.InputWattage = Create_UNI11733_Xml.Instance.Ldtlines[31];
             Create_UNI11733_Xml.Instance.RaCRI = Create_UNI11733_Xml.Instance.Ldtlines[30];
@@ -139,10 +249,19 @@ namespace LDTandIEStoXMLConverter
                 ;
             }
             else Create_UNI11733_Xml.Instance.LORL = 0;
-            if (Create_UNI11733_Xml.Instance.LORL == 100)
-                Create_UNI11733_Xml.Instance.ABSPhotom =true;
-            else Create_UNI11733_Xml.Instance.ABSPhotom =false;
 
+            if (Create_UNI11733_Xml.Instance.LORL == 100)
+            {
+                Create_UNI11733_Xml.Instance.ABSPhotom = true;
+            }
+            else if (Create_UNI11733_Xml.Instance.Ldtlines[25] == "-1")
+            {
+                Create_UNI11733_Xml.Instance.ABSPhotom = true;
+            }
+            else
+            {
+                Create_UNI11733_Xml.Instance.ABSPhotom = false;
+            }
             
             if (Int32.TryParse(Create_UNI11733_Xml.Instance.Ldtlines[2], out Create_UNI11733_Xml.Instance.symm))
             {

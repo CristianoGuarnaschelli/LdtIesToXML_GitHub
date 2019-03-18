@@ -39,8 +39,8 @@ namespace LDTandIEStoXMLConverter
         public void ParseIES()
         {
             Create_UNI11733_Xml.Instance.NameInFile = Photometric_management.Instance.filename;
-              
-                int lineCount = File.ReadLines(Photometric_management.Instance.FullFileName).Count();
+
+            int lineCount = File.ReadLines(Photometric_management.Instance.FullFileName).Count();
             string[] lines = (System.IO.File.ReadAllLines(Photometric_management.Instance.FullFileName));// the file.
 
             for (int i = 0; i < lineCount; i++)
@@ -68,14 +68,14 @@ namespace LDTandIEStoXMLConverter
                 else if (test.Contains("[LAMPCAT]"))
                     Create_UNI11733_Xml.Instance.LampCatalogNumber = test;
                 //else if (test.Contains("TILT=NONE"))
-              
+
                 //counter++;
             }
 
             iesindex = IESLines.IndexOf("TILT=NONE");
             //MessageBox.Show(iesindex.ToString());
 
-            string firstline = IESLines[iesindex + 1];            
+            string firstline = IESLines[iesindex + 1];
             string[] firstlinearray = firstline.Split(' ');
             Create_UNI11733_Xml.Instance.Gonio = Int32.Parse(firstlinearray[5]);
 
@@ -109,9 +109,192 @@ namespace LDTandIEStoXMLConverter
             //firstlinearray[5]; photometrict type
             //firstlinearray[6]; measure unt -> 2=meters
 
-            Create_UNI11733_Xml.Instance.Length = Convert.ToDecimal(firstlinearray[8]);
-            Create_UNI11733_Xml.Instance.Width = Convert.ToDecimal(firstlinearray[7]);
+            Create_UNI11733_Xml.Instance.Length = Convert.ToDecimal(firstlinearray[7]);
+            Create_UNI11733_Xml.Instance.Width = Convert.ToDecimal(firstlinearray[8]);
             Create_UNI11733_Xml.Instance.Height = Convert.ToDecimal(firstlinearray[9]);
+            Create_UNI11733_Xml.Instance.LumLength = Convert.ToDecimal(firstlinearray[7]);
+            Create_UNI11733_Xml.Instance.LumWidth = Convert.ToDecimal(firstlinearray[8]);
+            Create_UNI11733_Xml.Instance.hC0 = Convert.ToDecimal(firstlinearray[9]);
+            Create_UNI11733_Xml.Instance.hC90 = Convert.ToDecimal(firstlinearray[9]);
+            Create_UNI11733_Xml.Instance.hC180 = Convert.ToDecimal(firstlinearray[9]);
+            Create_UNI11733_Xml.Instance.hC270 = Convert.ToDecimal(firstlinearray[9]);
+
+            if (Create_UNI11733_Xml.Instance.Length == 0)
+            {
+                // IESNA OPENING POINT
+                Create_UNI11733_Xml.Instance.NBtmFace = 1;
+                Create_UNI11733_Xml.Instance.NTopFace = 0;
+                Create_UNI11733_Xml.Instance.NC0Face = 0;
+                Create_UNI11733_Xml.Instance.NC90Face = 0;
+                Create_UNI11733_Xml.Instance.NC180Face = 0;
+                Create_UNI11733_Xml.Instance.NC270Face = 0;
+                Create_UNI11733_Xml.Instance.CircularShapeBtm = false;
+                Create_UNI11733_Xml.Instance.CircularShapeTop = false;
+                Create_UNI11733_Xml.Instance.CircularShapeC0 = false;
+                Create_UNI11733_Xml.Instance.CircularShapeC90 = false;
+                Create_UNI11733_Xml.Instance.CircularShapeC180 = false;
+                Create_UNI11733_Xml.Instance.CircularShapeC270 = false;
+            }
+            else if (Create_UNI11733_Xml.Instance.Length > 0)
+            {
+                if (Create_UNI11733_Xml.Instance.Width > 0)
+                {
+                    if (Create_UNI11733_Xml.Instance.Height == 0)
+                    {
+                        // IESNA OPENING RECTANGULAR
+                        Create_UNI11733_Xml.Instance.NBtmFace = 1;
+                        Create_UNI11733_Xml.Instance.NTopFace = 0;
+                        Create_UNI11733_Xml.Instance.NC0Face = 0;
+                        Create_UNI11733_Xml.Instance.NC90Face = 0;
+                        Create_UNI11733_Xml.Instance.NC180Face = 0;
+                        Create_UNI11733_Xml.Instance.NC270Face = 0;
+                        Create_UNI11733_Xml.Instance.CircularShapeBtm = false;
+                        Create_UNI11733_Xml.Instance.CircularShapeTop = false;
+                        Create_UNI11733_Xml.Instance.CircularShapeC0 = false;
+                        Create_UNI11733_Xml.Instance.CircularShapeC90 = false;
+                        Create_UNI11733_Xml.Instance.CircularShapeC180 = false;
+                        Create_UNI11733_Xml.Instance.CircularShapeC270 = false;
+                    }
+                    if (Create_UNI11733_Xml.Instance.Height > 0)
+                    {
+                        MessageBox.Show("RECTANGULAR WITH LUMINOUS SIDES");
+                        // IESNA OPENING RECTANGULAR WITH LUMINOUS SIDES
+                        Create_UNI11733_Xml.Instance.NBtmFace = 1;
+                        Create_UNI11733_Xml.Instance.NTopFace = 0;
+                        Create_UNI11733_Xml.Instance.NC0Face = 1;
+                        Create_UNI11733_Xml.Instance.NC90Face = 1;
+                        Create_UNI11733_Xml.Instance.NC180Face = 1;
+                        Create_UNI11733_Xml.Instance.NC270Face = 1;
+                        Create_UNI11733_Xml.Instance.CircularShapeBtm = false;
+                        Create_UNI11733_Xml.Instance.CircularShapeTop = false;
+                        Create_UNI11733_Xml.Instance.CircularShapeC0 = false;
+                        Create_UNI11733_Xml.Instance.CircularShapeC90 = false;
+                        Create_UNI11733_Xml.Instance.CircularShapeC180 = false;
+                        Create_UNI11733_Xml.Instance.CircularShapeC270 = false;
+                    }
+                }
+                else if (Create_UNI11733_Xml.Instance.Width < 0)
+                {
+                    if (Create_UNI11733_Xml.Instance.Height < 0)
+                    {
+                        MessageBox.Show(" HORIZ CYLINDER/ELLIPS ALONG C-0");
+                        // IESNA OPENING HORIZ CYLINDER/ELLIPS ALONG C-0
+                        Create_UNI11733_Xml.Instance.CircularShape = "Align_X";
+                        Create_UNI11733_Xml.Instance.NBtmFace = 1;
+                        Create_UNI11733_Xml.Instance.NTopFace = 1;
+                        Create_UNI11733_Xml.Instance.NC0Face = 1;
+                        Create_UNI11733_Xml.Instance.NC90Face = 1;
+                        Create_UNI11733_Xml.Instance.NC180Face = 1;
+                        Create_UNI11733_Xml.Instance.NC270Face = 1;
+                        Create_UNI11733_Xml.Instance.CircularShapeBtm = false;
+                        Create_UNI11733_Xml.Instance.CircularShapeTop = false;
+                        Create_UNI11733_Xml.Instance.CircularShapeC0 = true;
+                        Create_UNI11733_Xml.Instance.CircularShapeC90 = false;
+                        Create_UNI11733_Xml.Instance.CircularShapeC180 = true;
+                        Create_UNI11733_Xml.Instance.CircularShapeC270 = false;
+                    }
+                }
+
+            }
+            else if (Create_UNI11733_Xml.Instance.Length < 0)
+            {
+                if (Create_UNI11733_Xml.Instance.Width > 0)
+                {
+                    if (Create_UNI11733_Xml.Instance.Height < 0)
+                    {
+                        MessageBox.Show(" HORIZ CYLINDER/ELLIPS ALONG C-90");
+                        // IESNA OPENING HORIZ CYLINDER/ELLIPS ALONG C-90
+                        Create_UNI11733_Xml.Instance.CircularShape = "Align_Y";
+                        Create_UNI11733_Xml.Instance.NBtmFace = 1;
+                        Create_UNI11733_Xml.Instance.NTopFace = 1;
+                        Create_UNI11733_Xml.Instance.NC0Face = 1;
+                        Create_UNI11733_Xml.Instance.NC90Face = 1;
+                        Create_UNI11733_Xml.Instance.NC180Face = 1;
+                        Create_UNI11733_Xml.Instance.NC270Face = 1;
+                        Create_UNI11733_Xml.Instance.CircularShapeBtm = false;
+                        Create_UNI11733_Xml.Instance.CircularShapeTop = false;
+                        Create_UNI11733_Xml.Instance.CircularShapeC0 = false;
+                        Create_UNI11733_Xml.Instance.CircularShapeC90 = true;
+                        Create_UNI11733_Xml.Instance.CircularShapeC180 = false;
+                        Create_UNI11733_Xml.Instance.CircularShapeC270 = true;
+                    }
+                }
+                else if (Create_UNI11733_Xml.Instance.Width < 0)
+                {
+                    if (Create_UNI11733_Xml.Instance.Height < 0)
+                    {
+                        // IESNA OPENING SPHERE/ELLIPS
+                        Create_UNI11733_Xml.Instance.CircularShape = "Align_Z";
+                        Create_UNI11733_Xml.Instance.NBtmFace = 1;
+                        Create_UNI11733_Xml.Instance.NTopFace = 1;
+                        Create_UNI11733_Xml.Instance.NC0Face = 1;
+                        Create_UNI11733_Xml.Instance.NC90Face = 1;
+                        Create_UNI11733_Xml.Instance.NC180Face = 1;
+                        Create_UNI11733_Xml.Instance.NC270Face = 1;
+                        Create_UNI11733_Xml.Instance.CircularShapeBtm = true;
+                        Create_UNI11733_Xml.Instance.CircularShapeTop = true;
+                        Create_UNI11733_Xml.Instance.CircularShapeC0 = true;
+                        Create_UNI11733_Xml.Instance.CircularShapeC90 = true;
+                        Create_UNI11733_Xml.Instance.CircularShapeC180 = true;
+                        Create_UNI11733_Xml.Instance.CircularShapeC270 = true;
+                    }
+                    else if (Create_UNI11733_Xml.Instance.Height > 0)
+                    {
+                        // IESNA OPENING VERTICAL CYLINDER/ELLIPS
+                        Create_UNI11733_Xml.Instance.CircularShape = "Align_Z";
+                        Create_UNI11733_Xml.Instance.NBtmFace = 1;
+                        Create_UNI11733_Xml.Instance.NTopFace = 1;
+                        Create_UNI11733_Xml.Instance.NC0Face = 1;
+                        Create_UNI11733_Xml.Instance.NC90Face = 1;
+                        Create_UNI11733_Xml.Instance.NC180Face = 1;
+                        Create_UNI11733_Xml.Instance.NC270Face = 1;
+                        Create_UNI11733_Xml.Instance.CircularShapeBtm = true;
+                        Create_UNI11733_Xml.Instance.CircularShapeTop = true;
+                        Create_UNI11733_Xml.Instance.CircularShapeC0 = false;
+                        Create_UNI11733_Xml.Instance.CircularShapeC90 = false;
+                        Create_UNI11733_Xml.Instance.CircularShapeC180 = false;
+                        Create_UNI11733_Xml.Instance.CircularShapeC270 = false;
+                    }
+                    else if (Create_UNI11733_Xml.Instance.Height == 0)
+                    {
+                        // IESNA OPENING CIRCLE/ELLIPS
+                        Create_UNI11733_Xml.Instance.CircularShape = "Align_Z";
+                        Create_UNI11733_Xml.Instance.NBtmFace = 1;
+                        Create_UNI11733_Xml.Instance.NTopFace = 0;
+                        Create_UNI11733_Xml.Instance.NC0Face = 0;
+                        Create_UNI11733_Xml.Instance.NC90Face = 0;
+                        Create_UNI11733_Xml.Instance.NC180Face = 0;
+                        Create_UNI11733_Xml.Instance.NC270Face = 0;
+                        Create_UNI11733_Xml.Instance.CircularShapeBtm = true;
+                        Create_UNI11733_Xml.Instance.CircularShapeTop = false;
+                        Create_UNI11733_Xml.Instance.CircularShapeC0 = false;
+                        Create_UNI11733_Xml.Instance.CircularShapeC90 = false;
+                        Create_UNI11733_Xml.Instance.CircularShapeC180 = false;
+                        Create_UNI11733_Xml.Instance.CircularShapeC270 = false;
+                    }
+                }
+                else if (Create_UNI11733_Xml.Instance.Width == 0)
+                {
+                    if (Create_UNI11733_Xml.Instance.Height < 0)
+                    {
+                        // IESNA OPENING VERTICAL CIRCLE/ELLIPS
+                        Create_UNI11733_Xml.Instance.CircularShape = "Align_X";
+                        Create_UNI11733_Xml.Instance.NBtmFace = 0;
+                        Create_UNI11733_Xml.Instance.NTopFace = 0;
+                        Create_UNI11733_Xml.Instance.NC0Face = 1;
+                        Create_UNI11733_Xml.Instance.NC90Face = 0;
+                        Create_UNI11733_Xml.Instance.NC180Face = 0;
+                        Create_UNI11733_Xml.Instance.NC270Face = 0;
+                        Create_UNI11733_Xml.Instance.CircularShapeBtm = false;
+                        Create_UNI11733_Xml.Instance.CircularShapeTop = false;
+                        Create_UNI11733_Xml.Instance.CircularShapeC0 = true;
+                        Create_UNI11733_Xml.Instance.CircularShapeC90 = false;
+                        Create_UNI11733_Xml.Instance.CircularShapeC180 = false;
+                        Create_UNI11733_Xml.Instance.CircularShapeC270 = false;
+                    }
+                }
+
+            }
 
 
             Create_UNI11733_Xml.Instance.NumberLightSource = 1;
@@ -149,7 +332,7 @@ namespace LDTandIEStoXMLConverter
                     nvv = nvv - 1;
                 };
             };
-            
+
             Create_UNI11733_Xml.Instance.cplaneset = new Decimal[NHoriz];
             Decimal Hvalue = 0;
             int firstHarrayidx = 0;
@@ -211,6 +394,6 @@ namespace LDTandIEStoXMLConverter
             };
 
         }
-        
+
     }
 }
