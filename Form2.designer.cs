@@ -190,7 +190,7 @@
             this.LuminaireGroupBox = new System.Windows.Forms.GroupBox();
             this.ShapeComboBox = new System.Windows.Forms.ComboBox();
             this.ShapeLabel = new System.Windows.Forms.Label();
-            this.NLightSourceTextBox = new System.Windows.Forms.TextBox();
+            this.NumEmitterTextBox = new System.Windows.Forms.TextBox();
             this.NLightSourceLabel = new System.Windows.Forms.Label();
             this.DimGroupBox = new System.Windows.Forms.GroupBox();
             this.HeightTextBox = new System.Windows.Forms.TextBox();
@@ -1726,7 +1726,7 @@
             // 
             this.LuminaireGroupBox.Controls.Add(this.ShapeComboBox);
             this.LuminaireGroupBox.Controls.Add(this.ShapeLabel);
-            this.LuminaireGroupBox.Controls.Add(this.NLightSourceTextBox);
+            this.LuminaireGroupBox.Controls.Add(this.NumEmitterTextBox);
             this.LuminaireGroupBox.Controls.Add(this.NLightSourceLabel);
             this.LuminaireGroupBox.Controls.Add(this.DimGroupBox);
             this.LuminaireGroupBox.Location = new System.Drawing.Point(11, 701);
@@ -1759,21 +1759,21 @@
             this.ShapeLabel.TabIndex = 6;
             this.ShapeLabel.Text = "Shape (if Cylindrical):";
             // 
-            // NLightSourceTextBox
+            // NumEmitterTextBox
             // 
-            this.NLightSourceTextBox.Location = new System.Drawing.Point(362, 82);
-            this.NLightSourceTextBox.Name = "NLightSourceTextBox";
-            this.NLightSourceTextBox.Size = new System.Drawing.Size(53, 20);
-            this.NLightSourceTextBox.TabIndex = 2;
+            this.NumEmitterTextBox.Location = new System.Drawing.Point(362, 82);
+            this.NumEmitterTextBox.Name = "NumEmitterTextBox";
+            this.NumEmitterTextBox.Size = new System.Drawing.Size(53, 20);
+            this.NumEmitterTextBox.TabIndex = 2;
             // 
             // NLightSourceLabel
             // 
             this.NLightSourceLabel.AutoSize = true;
             this.NLightSourceLabel.Location = new System.Drawing.Point(234, 85);
             this.NLightSourceLabel.Name = "NLightSourceLabel";
-            this.NLightSourceLabel.Size = new System.Drawing.Size(122, 13);
+            this.NLightSourceLabel.Size = new System.Drawing.Size(94, 13);
             this.NLightSourceLabel.TabIndex = 0;
-            this.NLightSourceLabel.Text = "Number of Light Source:";
+            this.NLightSourceLabel.Text = "Number of Emitter:";
             // 
             // DimGroupBox
             // 
@@ -2169,7 +2169,7 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.GroupBox LuminaireGroupBox;
         private System.Windows.Forms.Label ShapeLabel;
-        private System.Windows.Forms.TextBox NLightSourceTextBox;
+        private System.Windows.Forms.TextBox NumEmitterTextBox;
         private System.Windows.Forms.Label NLightSourceLabel;
         private System.Windows.Forms.GroupBox DimGroupBox;
         private System.Windows.Forms.TextBox HeightTextBox;

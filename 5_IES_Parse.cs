@@ -79,7 +79,7 @@ namespace LDTandIEStoXMLConverter
             string[] firstlinearray = firstline.Split(' ');
             Create_UNI11733_Xml.Instance.Gonio = Int32.Parse(firstlinearray[5]);
 
-            Create_UNI11733_Xml.Instance.Quantity = Convert.ToInt32(firstlinearray[0]);
+            Create_UNI11733_Xml.Instance.NumberLightSource = Convert.ToInt32(firstlinearray[0]);
 
             if (firstlinearray[1] == "-1")
             {

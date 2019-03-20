@@ -350,12 +350,12 @@ namespace LDTandIEStoXMLConverter
 
                 //Dimensions end
 
-                NLightSourceTextBox.Text = Create_UNI11733_Xml.Instance.NumberLightSource.ToString();
+                NumEmitterTextBox.Text = Create_UNI11733_Xml.Instance.NumberLightSource.ToString();
                 //LUMINAIRE end
 
                 //LuminousData start
                 //LuminousIntensity start
-                QuantityTextBox.Text = Create_UNI11733_Xml.Instance.Quantity.ToString();
+                QuantityTextBox.Text = Create_UNI11733_Xml.Instance.NumberLightSource.ToString();
                 DescTextBox.Text = Create_UNI11733_Xml.Instance.LampDescription;
                 //LampCodeTextBox.Text = "Not applicable";
                 LampCodeTextBox.Text = Lampcodestr; //modified by AW
@@ -503,7 +503,7 @@ namespace LDTandIEStoXMLConverter
 
             // Emitter variables
             Create_UNI11733_Xml.Instance.NumberLightSource = 0;
-            Create_UNI11733_Xml.Instance.Quantity = 0;
+            //Create_UNI11733_Xml.Instance.Quantity = 0;
             Create_UNI11733_Xml.Instance.LampDescription = null;
             Create_UNI11733_Xml.Instance.LampCatalogNumber = null;
             Create_UNI11733_Xml.Instance.RatedLumen = 0;

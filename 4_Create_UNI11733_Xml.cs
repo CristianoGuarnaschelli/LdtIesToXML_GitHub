@@ -100,7 +100,7 @@ namespace LDTandIEStoXMLConverter
 
         // Emitter variables
         public int NumberLightSource;
-        public int Quantity;
+        //public int Quantity;
         public String LampDescription;
         public String LampCatalogNumber;
         public Decimal RatedLumen;
@@ -176,7 +176,7 @@ namespace LDTandIEStoXMLConverter
 
             // Emitter variables
             NumberLightSource = 0;
-            Quantity = 0;
+            //Quantity = 0;
             LampDescription = null;
             LampCatalogNumber = null;
             RatedLumen = 0;
@@ -307,7 +307,7 @@ namespace LDTandIEStoXMLConverter
             }
 
 
-            luminairedata.NumEmitter = NumberLightSource; //Int32.Parse(Eulumdatdata[25]);
+            luminairedata.NumEmitter = 1; //Int32.Parse(Eulumdatdata[25]);
             luminairedata.Dimensions = new[] { dimensiondata };
 
             xml.Luminaire = new[] { luminairedata };
@@ -343,10 +343,11 @@ namespace LDTandIEStoXMLConverter
             //--------------CREATE LIGHTSOURCE BLOCK FROM LDT--------------------------
 
             var lsourcedata = new UNI11733Emitter();
-            lsourcedata.Quantity = Quantity;
+            lsourcedata.Quantity = NumberLightSource;
             lsourcedata.Description = LampDescription;
             lsourcedata.CatalogNumber = "Not applicable";
             lsourcedata.RatedLumens = RatedLumen;
+            lsourcedata.RatedLumensSpecified = true;
             lsourcedata.InputWattage = Decimal.Parse(InputWattage);
             lsourcedata.ColorTemperature = new[] { coltempdata };
 
@@ -363,6 +364,9 @@ namespace LDTandIEStoXMLConverter
 
             lsourcedata.LuminousData.LuminousIntensity.NumberMeasured = 1;
 
+            lsourcedata.LuminousData.LuminousIntensity.NumberHorz = NumberHorizontal;
+
+            lsourcedata.LuminousData.LuminousIntensity.NumberVert = NumberVertical;
 
             Decimal[] cplaneset = new Decimal[NumberHorizontal];
 
@@ -749,9 +753,10 @@ namespace LDTandIEStoXMLConverter
 
 
             var lsourcedata = new UNI11733Emitter();
-            lsourcedata.Quantity = Quantity;//Int32.Parse(firstlinearray[0]);
+            lsourcedata.Quantity = NumberLightSource;//Int32.Parse(firstlinearray[0]);
             lsourcedata.Description = LampDescription;
             lsourcedata.CatalogNumber = LampCatalogNumber;
+            lsourcedata.RatedLumens = RatedLumen;
             lsourcedata.InputWattage = Convert.ToDecimal(InputWattage);
 
             lsourcedata.LuminousData = new UNI11733EmitterLuminousData() { LuminousIntensity = new UNI11733EmitterLuminousDataLuminousIntensity() };
@@ -759,7 +764,7 @@ namespace LDTandIEStoXMLConverter
             lsourcedata.LuminousData.LuminousIntensity.AbsolutePhotometry = ABSPhotom;
 
 
-            lsourcedata.RatedLumens = RatedLumen;
+            
             lsourcedata.LuminousData.LuminousIntensity.NumberMeasured = 1;
 
             lsourcedata.LuminousData.LuminousIntensity.NumberHorz = NumberHorizontal;

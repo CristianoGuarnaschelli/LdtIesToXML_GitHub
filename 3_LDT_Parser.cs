@@ -224,21 +224,20 @@ namespace LDTandIEStoXMLConverter
             
 
 
-            if (Create_UNI11733_Xml.Instance.Ldtlines[25] == "-1")
+            if (Create_UNI11733_Xml.Instance.Ldtlines[26] == "-1")
             {
                 Create_UNI11733_Xml.Instance.ABSPhotom = true;
                 Create_UNI11733_Xml.Instance.NumberLightSource = 1;
             }
             else
             {
-                Create_UNI11733_Xml.Instance.NumberLightSource = Convert.ToInt32(Create_UNI11733_Xml.Instance.Ldtlines[25]);
+                Create_UNI11733_Xml.Instance.NumberLightSource = Convert.ToInt32(Create_UNI11733_Xml.Instance.Ldtlines[26]);
             }
-            Create_UNI11733_Xml.Instance.Quantity = Convert.ToInt32(Create_UNI11733_Xml.Instance.Ldtlines[26]);
+            
             Create_UNI11733_Xml.Instance.LampDescription = Create_UNI11733_Xml.Instance.Ldtlines[27];
 
             Create_UNI11733_Xml.Instance.RatedLumen= Decimal.Parse(Create_UNI11733_Xml.Instance.Ldtlines[28], CultureInfo.InvariantCulture);
-            //MessageBox.Show(Create_UNI11733_Xml.Instance.RatedLumen.ToString());
-            //Create_UNI11733_Xml.Instance.RatedLumen = Convert.ToDecimal(Create_UNI11733_Xml.Instance.Ldtlines[28]);
+            
             Create_UNI11733_Xml.Instance.InputWattage = Create_UNI11733_Xml.Instance.Ldtlines[31];
             Create_UNI11733_Xml.Instance.RaCRI = Create_UNI11733_Xml.Instance.Ldtlines[30];
             Create_UNI11733_Xml.Instance.FixedCCT = Create_UNI11733_Xml.Instance.Ldtlines[29];
@@ -254,7 +253,7 @@ namespace LDTandIEStoXMLConverter
             {
                 Create_UNI11733_Xml.Instance.ABSPhotom = true;
             }
-            else if (Create_UNI11733_Xml.Instance.Ldtlines[25] == "-1")
+            else if (Create_UNI11733_Xml.Instance.Ldtlines[26] == "-1")
             {
                 Create_UNI11733_Xml.Instance.ABSPhotom = true;
             }
