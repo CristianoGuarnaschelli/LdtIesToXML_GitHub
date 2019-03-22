@@ -348,7 +348,7 @@ namespace LDTandIEStoXMLConverter
             lsourcedata.CatalogNumber = "Not applicable";
             lsourcedata.RatedLumens = RatedLumen;
             lsourcedata.RatedLumensSpecified = true;
-            lsourcedata.InputWattage = Decimal.Parse(InputWattage);
+            lsourcedata.InputWattage = Decimal.Parse(InputWattage.Replace(",", "."));
             lsourcedata.ColorTemperature = new[] { coltempdata };
 
             lsourcedata.ColorRendering = new UNI11733EmitterColorRendering() { CIE_CRI = new UNI11733EmitterColorRenderingCIE_CRI() };
@@ -373,7 +373,7 @@ namespace LDTandIEStoXMLConverter
             for (int nhh = 0; nhh < NumberHorizontal; nhh++)
             {
                 int cpindex = 42 + nhh;
-                cplaneset[nhh] = Decimal.Parse(Ldtlines[cpindex]);
+                cplaneset[nhh] = Decimal.Parse(Ldtlines[cpindex].Replace(",", "."));
                 //MessageBox.Show(cplaneset[nh].ToString());
             };
 
@@ -382,7 +382,7 @@ namespace LDTandIEStoXMLConverter
             for (int nvv = 0; nvv < NumberVertical; nvv++)
             {
                 int distcpindex = 42 + NumberHorizontal + nvv;
-                distcpset[nvv] = Decimal.Parse(Ldtlines[distcpindex]);
+                distcpset[nvv] = Decimal.Parse(Ldtlines[distcpindex].Replace(",", "."));
 
             };
 
@@ -416,7 +416,7 @@ namespace LDTandIEStoXMLConverter
             for (int ni = 0; ni < candelaidx; ni++)
             {
                 int idataindex = 42 + NumberHorizontal + NumberVertical + ni;
-                intensitydata[ni] = Decimal.Parse(Ldtlines[idataindex]);
+                intensitydata[ni] = Decimal.Parse(Ldtlines[idataindex].Replace(",","."));
 
             };
 

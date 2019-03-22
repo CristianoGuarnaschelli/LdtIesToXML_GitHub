@@ -236,7 +236,7 @@ namespace LDTandIEStoXMLConverter
             
             Create_UNI11733_Xml.Instance.LampDescription = Create_UNI11733_Xml.Instance.Ldtlines[27];
 
-            Create_UNI11733_Xml.Instance.RatedLumen= Decimal.Parse(Create_UNI11733_Xml.Instance.Ldtlines[28], CultureInfo.InvariantCulture);
+            Create_UNI11733_Xml.Instance.RatedLumen= Decimal.Parse(Create_UNI11733_Xml.Instance.Ldtlines[28].Replace(",", "."));
             
             Create_UNI11733_Xml.Instance.InputWattage = Create_UNI11733_Xml.Instance.Ldtlines[31];
             Create_UNI11733_Xml.Instance.RaCRI = Create_UNI11733_Xml.Instance.Ldtlines[30];
